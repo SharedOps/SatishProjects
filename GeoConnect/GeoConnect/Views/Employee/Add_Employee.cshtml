@@ -1,0 +1,59 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Add_Employee</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <form method="post">
+            <div class="table-responsive">
+                <table cellspacing="3" cellpadding="3">
+                    
+                    <tbody>
+                      <tr>
+                          <td>Name</td>
+                          <td><input type="text" name="Name" /> </td>
+                      </tr>
+                        <tr>
+                            <td>Address</td>
+                            <td><input type="text" name="Address" /> </td>
+                        </tr>
+                        <tr>
+                            <td>City</td>
+                            <td><input type="text" name="City" /> </td>
+                        </tr>
+                        <tr>
+                            <td>PinCode</td>
+                            <td><input type="text" name="PinCode" /> </td>
+                        </tr>
+                        <tr>
+                            <td>Designation</td>
+                            <td><input type="text" name="Designation" /> </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><input type="submit" value="Submit" class="btn btn-primary" /> </td>
+                            <td><a href="/Employee/Index">Back to Index</a></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+    @{ 
+        if(TempData["msg"]!=null)
+        {
+            <script>alert('@TempData["msg"]')</script>
+        }
+    }
+</body>
+</html>

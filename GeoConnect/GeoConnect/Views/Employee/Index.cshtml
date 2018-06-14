@@ -1,0 +1,55 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-hover table-condensed">
+                <thead>
+                   <tr>
+                       <th>Emp_Id</th>
+                       <th>Name</th>
+                       <th>Address</th>
+                       <th>City</th>
+                       <th>PinCide</th>
+                       <th>Designation</th>
+                       <th>Actions</th>
+                   </tr>
+                </thead>
+                <tbody>
+                    @{
+                        foreach (System.Data.DataRow dr in ViewBag.emp.Rows)
+                        {
+                            <tr>
+                                <td>@dr["Emp_Id"]</td>
+                                <td>@dr["Name"]</td>
+                                <td>@dr["Address"]</td>
+                                <td>@dr["City"]</td>
+                                <td>@dr["PinCode"]</td>
+                                <td>@dr["Designation"]</td>
+                                <td>
+                                    <a href="/Employee/Add_Employee">Add New</a>
+                                    <a href="/Employee/Update_Employee?id=@dr["Emp_Id"]">Update</a>
+                                    <a href="/Employee/Delete_Employee?id=@dr["Emp_Id"]">Delete</a>
+                                </td>
+                                
+                            </tr>
+                        }
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
