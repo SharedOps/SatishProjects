@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.6
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoxLearn", "FoxLearn\FoxLearn.csproj", "{8C64EC2E-6D29-4FA5-89C4-9752296B881A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoxLearn.Tests", "FoxLearn.Tests\FoxLearn.Tests.csproj", "{1E1C8D09-F130-46C3-816B-3492B61DD559}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8C64EC2E-6D29-4FA5-89C4-9752296B881A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C64EC2E-6D29-4FA5-89C4-9752296B881A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C64EC2E-6D29-4FA5-89C4-9752296B881A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C64EC2E-6D29-4FA5-89C4-9752296B881A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E1C8D09-F130-46C3-816B-3492B61DD559}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E1C8D09-F130-46C3-816B-3492B61DD559}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E1C8D09-F130-46C3-816B-3492B61DD559}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E1C8D09-F130-46C3-816B-3492B61DD559}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
