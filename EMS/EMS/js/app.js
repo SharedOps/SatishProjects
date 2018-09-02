@@ -36,7 +36,7 @@ function employeeController($scope, $http) {
             $scope.updateShow = true;
             $scope.addShow = false;
         }).error(function () {
-            $scope.error = "An Error has occured while loading posts!";
+            $scope.error = "An Error has occured while editing posts!";
         });
     }
 
@@ -60,7 +60,7 @@ function employeeController($scope, $http) {
         $http.delete('/api/EmployeeAPI/' + Id).success(function (data) {
             $scope.employees = data;            
         }).error(function (data) {
-            $scope.error = "An Error has occured while Saving employee! " + data;
+            $scope.error = "An Error has occured while Deleting employee! " + data;
         });
     }
 

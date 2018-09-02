@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27703.2047
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EMS", "EMS\EMS.csproj", "{9F9A54AB-A4E2-4B0E-B2E1-DB7DA115941B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoConnect", "GeoConnect\GeoConnect.csproj", "{D864593E-C784-4FA5-9212-6912BF517962}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{9F9A54AB-A4E2-4B0E-B2E1-DB7DA115941B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F9A54AB-A4E2-4B0E-B2E1-DB7DA115941B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F9A54AB-A4E2-4B0E-B2E1-DB7DA115941B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D864593E-C784-4FA5-9212-6912BF517962}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D864593E-C784-4FA5-9212-6912BF517962}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D864593E-C784-4FA5-9212-6912BF517962}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D864593E-C784-4FA5-9212-6912BF517962}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
