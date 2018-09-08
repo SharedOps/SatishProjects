@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GeoStudentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'GeoStudent.dbo.tblImage' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="tblImage">
+    <Key>
+      <PropertyRef Name="FirstName" />
+      <PropertyRef Name="LastName" />
+      <PropertyRef Name="Country" />
+      <PropertyRef Name="City" />
+      <PropertyRef Name="Mobile" />
+      <PropertyRef Name="Image" />
+    </Key>
+    <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Country" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="City" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Mobile" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Image" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <Function Name="SP_INSERTIMAGEDATA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FirstName" Type="varchar" Mode="In" />
+    <Parameter Name="LastName" Type="varchar" Mode="In" />
+    <Parameter Name="Country" Type="varchar" Mode="In" />
+    <Parameter Name="City" Type="varchar" Mode="In" />
+    <Parameter Name="Mobile" Type="varchar" Mode="In" />
+    <Parameter Name="Image" Type="varchar(max)" Mode="In" />
+  </Function>
+  <EntityContainer Name="GeoStudentModelStoreContainer">
+    <EntitySet Name="tblImage" EntityType="Self.tblImage" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [tblImage].[FirstName] AS [FirstName], 
+    [tblImage].[LastName] AS [LastName], 
+    [tblImage].[Country] AS [Country], 
+    [tblImage].[City] AS [City], 
+    [tblImage].[Mobile] AS [Mobile], 
+    [tblImage].[Image] AS [Image]
+    FROM [dbo].[tblImage] AS [tblImage]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

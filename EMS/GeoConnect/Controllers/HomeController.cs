@@ -26,6 +26,9 @@ namespace GeoConnect.Controllers
             {
                 bytes = br.ReadBytes(postedFile.ContentLength);
             }
+
+            string base64String = Convert.ToBase64String(bytes, 0, bytes.Length);
+
             dbFilesEntities entities = new dbFilesEntities();
             entities.tblFiles.Add(new tblFile
             {

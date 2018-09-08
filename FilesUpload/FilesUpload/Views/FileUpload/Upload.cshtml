@@ -1,0 +1,115 @@
+﻿
+@model FilesUpload.Models.Employee
+@{
+    ViewBag.Title = "Upload";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script src="~/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#Apply').prop('disabled', true);
+            $("#Resume").change(function () {
+                // Get uploaded file extension
+                var extension = $(this).val().split('.').pop().toLowerCase();
+                // Create array with the files extensions that we wish to upload
+                var validFileExtensions = ['doc', 'docx', 'pdf', 'jpg', 'jpeg', 'png'];
+                //Check file extension in the array.if -1 that means the file extension is not in the list.
+                if ($.inArray(extension, validFileExtensions) == -1) {
+                    alert("Sorry!! Upload only 'doc', 'docx', 'pdf', 'jpg','jpeg','png' file")
+                    // Clear fileuload control selected file
+                    $(this).replaceWith($(this).val('').clone(true));
+                    //Disable Submit Button
+                    $('#Apply').prop('disabled', true);
+                } else {
+                    // Check and restrict the file size to 5 MB.
+                    if ($(this).get(0).files[0].size > (5242880)) {
+                        alert("Sorry!! Max allowed file size is 5 MB");
+                        // Clear fileuload control selected file
+                        $(this).replaceWith($(this).val('').clone(true));
+                        //Disable Submit Button
+                        $('#Apply').prop('disabled', true);
+                    } else {
+                        //Enable Submit Button
+                        $('#Apply').prop('disabled', false);
+                    }
+                }
+            });
+            $("#Apply").click(function () {
+                if ($("#FirstName").val() = null || $("#LastName").val() || $("#Skills").val() || $("#EmailID").val() || $("#ContactNo").val() || $("#Resume").val()) {
+                    alert("Please fill out required fields(*)");
+                    return false;
+                }
+                return true;
+            });
+        });
+    </script>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            padding: 15px;
+        }
+
+        thead {
+            background-color: skyblue;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        @using (Html.BeginForm("Upload", "FileUpload", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {<br />
+            <table cellpadding="5">
+                <thead>
+                    <tr>
+                        <td colspan="2" style="text-align:center">Sr. DotNet Developer</td>
+                    </tr>
+                </thead>
+                <tr>
+                    <td colspan="2"> Please fill <span style="color:red">(*)</span> out below fields and click Apply for this position </td>
+                </tr>
+                <tr>
+                    <td> @Html.LabelFor(m => m.FirstName)<b style="color:red"> *</b> </td>
+                    <td> @Html.TextBoxFor(m => m.FirstName, new { maxlength = 25 }) </td>
+                </tr>
+                <tr>
+                    <td> @Html.LabelFor(m => m.LastName)<b style="color:red"> *</b> </td>
+                    <td> @Html.TextBoxFor(m => m.LastName) </td>
+                </tr>
+                <tr>
+                    <td> @Html.LabelFor(m => m.Position)<b style="color:red"> *</b> </td>
+                    <td> @Html.TextBoxFor(m => m.Position, new { @Value = "Sr. DotNet Developer", @readonly = "readonly" }) </td>
+                </tr>
+                <tr>
+                    <td> @Html.LabelFor(m => m.Skills)<b style="color:red"> *</b> </td>
+                    <td> @Html.TextBoxFor(m => m.Skills, new { maxlength = 250 }) </td>
+                </tr>
+                <tr>
+                    <td> @Html.LabelFor(m => m.EmailID)<b style="color:red"> *</b> </td>
+                    <td> @Html.TextBoxFor(m => m.EmailID, new { type = "email" }) </td>
+                </tr>
+                <tr>
+                    <td> @Html.LabelFor(m => m.ContactNo)<b style="color:red"> *</b> </td>
+                    <td> @Html.TextBoxFor(m => m.ContactNo, new { @type = "number" }) </td>
+                </tr>
+                <tr>
+                    <td> @Html.LabelFor(m => m.Resume)<b style="color:red"> *</b> </td>
+                    <td> @Html.TextBoxFor(m => m.Resume, new { type = "file" }) </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align:center"> <input type="submit" id="Apply" value="Apply" /> </td>
+                </tr>
+            </table>}
+    </div>
+</body>
+
+</html>  

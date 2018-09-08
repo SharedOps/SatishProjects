@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="GeoStudentModelStoreContainer" CdmEntityContainer="GeoStudentEntities">
+    <EntitySetMapping Name="tblImages">
+      <EntityTypeMapping TypeName="GeoStudentModel.tblImage">
+        <MappingFragment StoreEntitySet="tblImage">
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_INSERTIMAGEDATA" FunctionName="GeoStudentModel.Store.SP_INSERTIMAGEDATA" />
+  </EntityContainerMapping>
+</Mapping>
