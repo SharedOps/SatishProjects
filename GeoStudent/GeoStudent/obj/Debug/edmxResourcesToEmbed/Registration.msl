@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="dbFilesModelStoreContainer" CdmEntityContainer="dbFilesEntities">
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="dbFilesModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="dbFilesModel.User">
+        <ModificationFunctionMapping>
+          <InsertFunction FunctionName="dbFilesModel.Store.Insert_User">
+            <ScalarProperty Name="Email" ParameterName="Email" />
+            <ScalarProperty Name="Password" ParameterName="Password" />
+            <ScalarProperty Name="Username" ParameterName="Username" />
+            <ResultBinding Name="UserId" ColumnName="UserId" />
+          </InsertFunction>
+        </ModificationFunctionMapping>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Insert_User" FunctionName="dbFilesModel.Store.Insert_User" />
+    <EntitySetMapping Name="UserActivations">
+      <EntityTypeMapping TypeName="dbFilesModel.UserActivation">
+        <MappingFragment StoreEntitySet="UserActivation">
+          <ScalarProperty Name="ActivationCode" ColumnName="ActivationCode" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Validate_User" FunctionName="dbFilesModel.Store.Validate_User" />
+    <FunctionImportMapping FunctionImportName="ValidateUser" FunctionName="dbFilesModel.Store.Validate_User" />
+  </EntityContainerMapping>
+</Mapping>

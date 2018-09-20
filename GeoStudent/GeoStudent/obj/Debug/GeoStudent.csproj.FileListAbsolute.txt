@@ -73,3 +73,10 @@ C:\Users\manim\Documents\GitHub\SatishProjects\GeoStudent\GeoStudent\obj\Debug\G
 C:\Users\manim\Documents\GitHub\SatishProjects\GeoStudent\GeoStudent\obj\Debug\GeoStudent.csproj.CopyComplete
 C:\Users\manim\Documents\GitHub\SatishProjects\GeoStudent\GeoStudent\obj\Debug\GeoStudent.dll
 C:\Users\manim\Documents\GitHub\SatishProjects\GeoStudent\GeoStudent\obj\Debug\GeoStudent.pdb
+C:\Users\manim\Documents\GitHub\SatishProjects\GeoStudent\GeoStudent\bin\Antlr3.Runtime.dll
+C:\Users\manim\Documents\GitHub\SatishProjects\GeoStudent\GeoStudent\bin\Newtonsoft.Json.dll
+C:\Users\manim\Documents\GitHub\SatishProjects\GeoStudent\GeoStudent\bin\System.Web.Optimization.dll
+C:\Users\manim\Documents\GitHub\SatishProjects\GeoStudent\GeoStudent\bin\WebGrease.dll
+C:\Users\manim\Documents\GitHub\SatishProjects\GeoStudent\GeoStudent\bin\Antlr3.Runtime.pdb
+C:\Users\manim\Documents\GitHub\SatishProjects\GeoStudent\GeoStudent\bin\Newtonsoft.Json.xml
+C:\Users\manim\Documents\GitHub\SatishProjects\GeoStudent\GeoStudent\bin\System.Web.Optimization.xml
