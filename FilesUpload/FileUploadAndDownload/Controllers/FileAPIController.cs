@@ -18,18 +18,22 @@ namespace FileUploadAndDownload.Controllers
         public HttpResponseMessage SaveFile()
         {
             //Create HTTP Response.
+
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
 
             //Check if Request contains File.
+
             if (HttpContext.Current.Request.Files.Count == 0)
             {
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
             }
 
             //Read the File data from Request.Form collection.
+
             HttpPostedFile postedFile = HttpContext.Current.Request.Files[0];
 
             //Convert the File data to Byte Array.
+
             byte[] bytes;
             using (BinaryReader br = new BinaryReader(postedFile.InputStream))
             {
@@ -37,6 +41,7 @@ namespace FileUploadAndDownload.Controllers
             }
 
             //Insert the File to Database Table.
+
             GeoStudentEntities entities = new GeoStudentEntities();
             tblFile file = new tblFile
             {
@@ -65,25 +70,31 @@ namespace FileUploadAndDownload.Controllers
         public HttpResponseMessage GetFile(int fileId)
         {
             //Create HTTP Response.
+
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
 
             //Fetch the File data from Database.
+
             GeoStudentEntities entities = new GeoStudentEntities();
             tblFile file = entities.tblFiles.ToList().Find(p => p.id == fileId);
 
             //Set the Response Content.
+
             response.Content = new ByteArrayContent(file.Data);
 
             //Set the Response Content Length.
+
             response.Content.Headers.ContentLength = file.Data.LongLength;
 
             //Set the Content Disposition Header Value and FileName.
+
             response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
             {
                 FileName = file.Name
             };
 
             //Set the File Content Type.
+
             response.Content.Headers.ContentType = new MediaTypeHeaderValue(file.ContentType);
             return response;
         }
