@@ -1,0 +1,11 @@
+﻿
+@{
+    ViewBag.Title = "Welcome";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Hi <b>@Context.User.Identity.Name</b>! Welcome to My Real World Web Application!</h2>
+
+<br /><br /><br />
+@Html.ActionLink("Signout", "SignOut", "Account")
+

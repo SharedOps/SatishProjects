@@ -1,0 +1,36 @@
+﻿using RealWorld.Security;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace RealWorld.Controllers
+{
+    public class HomeController : Controller
+    {
+        // GET: Home
+        public ActionResult Index()
+        {
+            return View();
+        }
+        [Authorize]
+        public ActionResult Welcome()
+        {
+            return View();
+        }
+
+        //Means that only allow admin users to access the “AdminOnly” page
+
+        [AuthorizeRoles("Admin")]
+        public ActionResult AdminOnly()
+        {
+            return View();
+        }
+
+        public ActionResult UnAuthorized()
+        {
+            return View();
+        }
+    }
+}
