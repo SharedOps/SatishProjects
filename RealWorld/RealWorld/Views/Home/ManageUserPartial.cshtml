@@ -1,0 +1,38 @@
+﻿@model RealWorld.Models.ViewModel.UserDataView
+
+<div>
+    <h2>List of Users</h2>
+    <span class="alert-success">@ViewBag.Message</span>
+    <table class="table table-bordered table-condensed table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Login Id</th>
+                <th>Password</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Gender</th>
+                <th colspan="2">Role</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var item in Model.UserProfile)
+            {
+            <tr>
+                <td>@Html.DisplayFor(model => item.SYSUserID)</td>
+                <td>@Html.DisplayFor(model => item.LoginName)</td>
+                <td>@Html.DisplayFor(model => item.Password)</td>
+                <td>@Html.DisplayFor(model => item.FirstName)</td>
+                <td>@Html.DisplayFor(model => item.LastName)</td>
+                <td>@Html.DisplayFor(model => item.Gender)</td>
+                <td>@Html.DisplayFor(model=>item.RoleName)</td>
+                <td>@Html.HiddenFor(model=>item.LOOKUPRoleID)</td>
+                <td><a href="javacript:void(0)" class="lnkEdit">Edit</a></td>
+                <td><a href="javascript:void(0)" class="lnkDelete">Delete</a></td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

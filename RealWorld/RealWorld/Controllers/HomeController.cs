@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
+using RealWorld.Models.EntityManager;
+using RealWorld.Models.ViewModel;
 
 namespace RealWorld.Controllers
 {
@@ -20,7 +23,7 @@ namespace RealWorld.Controllers
             return View();
         }
 
-        //Means that only allow admin users to access the “AdminOnly” page
+        //Means that allow only admin users to access the “AdminOnly” page
 
         [AuthorizeRoles("Admin")]
         public ActionResult AdminOnly()
@@ -30,6 +33,22 @@ namespace RealWorld.Controllers
 
         public ActionResult UnAuthorized()
         {
+            return View();
+        }
+
+
+        //calls the GetUserDataView() method by passing in the loginName as the parameter
+        //and return the result in the Partial View.
+        [AuthorizeRoles("Admin")]
+        public ActionResult ManageUserPartial()
+        {
+            if(User.Identity.IsAuthenticated)
+            {
+                string loginName = User.Identity.Name;
+                UserManager UM = new UserManager();
+                UserDataView UDV = UM.GetUserDataView(loginName);
+                return PartialView(UDV);
+            }
             return View();
         }
     }

@@ -110,5 +110,105 @@ namespace RealWorld.Models.EntityManager
             }
             return false;
         }
+
+
+        public List<LOOKUPAvailableRole> GetAllRoles()
+        {
+            using (DemoDBEntities db = new DemoDBEntities())
+            {
+                var roles = db.LOOKUPRoles.Select(x => new LOOKUPAvailableRole
+                {
+                    LOOKUPRoleID = x.LOOKUPRoleID,
+                    RoleName = x.RoleName,
+                    RoleDescription = x.RoleDescription
+                }).ToList();
+
+                return roles;
+            }
+        }
+
+
+        public int GetUserID(string loginName)
+        {
+            using (DemoDBEntities db = new DemoDBEntities())
+            {
+                var user = db.SYSUsers.Where(x => x.LoginName.Equals(loginName));
+                if(user.Any())
+                {
+                    return user.FirstOrDefault().SYSUserID;
+
+                }
+                return 0;
+            }
+        }
+
+
+        public List<UserProfileView> GetAllUserProfiles()
+        {
+            List<UserProfileView> profiles = new List<UserProfileView>();
+            using (DemoDBEntities db = new DemoDBEntities())
+            {
+                UserProfileView UPV;
+                var users = db.SYSUsers.ToList();
+                foreach(SYSUser s in db.SYSUsers)
+                {
+                    UPV = new UserProfileView
+                    {
+                        SYSUserID = s.SYSUserID,
+                        LoginName = s.LoginName,
+                        Password = s.PasswordEncryptedText
+                    };
+
+                    var SUP = db.SYSUserProfiles.Find(s.SYSUserID);
+                    if(SUP!=null)
+                    {
+                        UPV.FirstName = SUP.FirstName;
+                        UPV.LastName = SUP.LastName;
+                        UPV.Gender = SUP.Gender;
+                    }
+
+                    var SUR = db.SYSUserRoles.Where(x => x.SYSUserID.Equals(s.SYSUserID));
+                    if(SUR.Any())
+                    {
+                        var userRole = SUR.FirstOrDefault();
+                        UPV.LOOKUPRoleID = userRole.LOOKUPRoleID;
+                        UPV.RoleName = userRole.LOOKUPRole.RoleName;
+                        UPV.IsRoleActive = userRole.IsActive;
+                    }
+                    profiles.Add(UPV);
+                }
+            }
+            return profiles;
+        }
+
+        //gets all user profiles and roles.
+        public UserDataView GetUserDataView(string loginName)
+        {
+            UserDataView UDV = new UserDataView();
+            List<UserProfileView> profiles = GetAllUserProfiles();
+            List<LOOKUPAvailableRole> roles = GetAllRoles();
+
+            int? userAssignedRoleID = 0, userID = 0;
+            string userGender = string.Empty;
+
+            userID = GetUserID(loginName);
+
+            using (DemoDBEntities db = new DemoDBEntities())
+            {
+                userAssignedRoleID = db.SYSUserRoles.Where(x => x.SYSUserID == userID)?.FirstOrDefault().LOOKUPRoleID;
+                userGender = db.SYSUserProfiles.Where(x => x.SYSUserID == userID)?.FirstOrDefault().Gender;
+            }
+            List<Gender> genders = new List<Gender>
+            {
+                new Gender { Text = "Male", Value = "M" },
+                new Gender { Text = "Female", Value = "F" }
+            };
+
+            UDV.UserProfile = profiles;
+            UDV.UserRoles = new UserRoles { SelectedRoleID = userAssignedRoleID, UserRoleList = roles };
+            UDV.UserGender = new UserGender { SelectedGender = userGender, Gender = genders };
+
+            return UDV;
+        }
     }
 }
