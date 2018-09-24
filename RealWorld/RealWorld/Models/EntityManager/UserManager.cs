@@ -41,7 +41,7 @@ namespace RealWorld.Models.EntityManager
                 db.SYSUserProfiles.Add(SUP);
                 db.SaveChanges();
 
-                if(user.LOOKUPRoleID>0)
+                if (user.LOOKUPRoleID > 0)
                 {
                     SYSUserRole SUR = new SYSUserRole
                     {
@@ -76,7 +76,7 @@ namespace RealWorld.Models.EntityManager
             using (DemoDBEntities db = new DemoDBEntities())
             {
                 var user = db.SYSUsers.Where(x => x.LoginName.ToLower().Equals(loginName));
-                if(user.Any())
+                if (user.Any())
                 {
                     return user.FirstOrDefault().PasswordEncryptedText;
                 }
@@ -94,19 +94,19 @@ namespace RealWorld.Models.EntityManager
             using (DemoDBEntities db = new DemoDBEntities())
             {
                 SYSUser SU = db.SYSUsers.Where(x => x.LoginName.ToLower().Equals(loginName))?.FirstOrDefault();
-                if(SU!=null)
+                if (SU != null)
                 {
                     var roles = from q in db.SYSUserRoles
                                 join r in db.LOOKUPRoles on q.LOOKUPRoleID equals r.LOOKUPRoleID
                                 where r.RoleName.Equals(roleName) && q.SYSUserID.Equals(SU.SYSUserID)
                                 select r.RoleName;
 
-                    if(roles!=null)
+                    if (roles != null)
                     {
                         return roles.Any();
                     }
                 }
-                
+
             }
             return false;
         }
@@ -133,7 +133,7 @@ namespace RealWorld.Models.EntityManager
             using (DemoDBEntities db = new DemoDBEntities())
             {
                 var user = db.SYSUsers.Where(x => x.LoginName.Equals(loginName));
-                if(user.Any())
+                if (user.Any())
                 {
                     return user.FirstOrDefault().SYSUserID;
 
@@ -150,7 +150,7 @@ namespace RealWorld.Models.EntityManager
             {
                 UserProfileView UPV;
                 var users = db.SYSUsers.ToList();
-                foreach(SYSUser s in db.SYSUsers)
+                foreach (SYSUser s in db.SYSUsers)
                 {
                     UPV = new UserProfileView
                     {
@@ -160,7 +160,7 @@ namespace RealWorld.Models.EntityManager
                     };
 
                     var SUP = db.SYSUserProfiles.Find(s.SYSUserID);
-                    if(SUP!=null)
+                    if (SUP != null)
                     {
                         UPV.FirstName = SUP.FirstName;
                         UPV.LastName = SUP.LastName;
@@ -168,7 +168,7 @@ namespace RealWorld.Models.EntityManager
                     }
 
                     var SUR = db.SYSUserRoles.Where(x => x.SYSUserID.Equals(s.SYSUserID));
-                    if(SUR.Any())
+                    if (SUR.Any())
                     {
                         var userRole = SUR.FirstOrDefault();
                         UPV.LOOKUPRoleID = userRole.LOOKUPRoleID;
@@ -209,6 +209,82 @@ namespace RealWorld.Models.EntityManager
             UDV.UserGender = new UserGender { SelectedGender = userGender, Gender = genders };
 
             return UDV;
+        }
+
+
+        public void UpdateUserAccount(UserProfileView user)
+        {
+            using (DemoDBEntities db = new DemoDBEntities())
+            {
+                using (var dbContextTransaction = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        SYSUser SU = db.SYSUsers.Find(user.SYSUserID);
+                        SU.LoginName = user.LoginName;
+                        SU.PasswordEncryptedText = user.Password;
+                        SU.RowCreatedSYSUserID = user.SYSUserID;
+                        SU.RowModifiedSYSUserID = user.SYSUserID;
+                        SU.RowCreatedDateTime = DateTime.Now;
+                        SU.RowModifiedDateTime = DateTime.Now;
+                        db.SaveChanges();
+
+                        var userProfile = db.SYSUserProfiles.Where(x => x.SYSUserID == user.SYSUserID);
+                        if (userProfile.Any())
+                        {
+                            SYSUserProfile SUP = userProfile.FirstOrDefault();
+                            SUP.SYSUserID = SU.SYSUserID;
+                            SUP.FirstName = user.FirstName;
+                            SUP.LastName = user.LastName;
+                            SUP.Gender = user.Gender;
+                            SUP.RowCreatedSYSUserID = user.SYSUserID;
+                            SUP.RowModifiedSYSUserID = user.SYSUserID;
+                            SUP.RowCreatedDateTime = DateTime.Now;
+                            SUP.RowModifiedDateTime = DateTime.Now;
+                            db.SaveChanges();
+                        }
+
+                        if (user.LOOKUPRoleID > 0)
+                        {
+                            var userRole = db.SYSUserRoles.Where(x => x.SYSUserID == user.SYSUserID);
+                            SYSUserRole SUR = null;
+                            if (userRole.Any())
+                            {
+                                SUR = userRole.FirstOrDefault();
+                                SUR.LOOKUPRoleID = user.LOOKUPRoleID;
+                                SUR.SYSUserID = user.SYSUserID;
+                                SUR.IsActive = true;
+                                SUR.RowCreatedSYSUserID = user.SYSUserID;
+                                SUR.RowModifiedSYSUserID = user.SYSUserID;
+                                SUR.RowCreatedDateTime = DateTime.Now;
+                                SUR.RowModifiedDateTime = DateTime.Now;
+
+                            }
+                            else
+                            {
+                                SUR = new SYSUserRole
+                                {
+                                    LOOKUPRoleID = user.LOOKUPRoleID,
+                                    SYSUserID = user.SYSUserID,
+                                    IsActive = true,
+                                    RowCreatedSYSUserID = user.SYSUserID,
+                                    RowModifiedSYSUserID = user.SYSUserID,
+                                    RowCreatedDateTime = DateTime.Now,
+                                    RowModifiedDateTime = DateTime.Now
+                                };
+                                db.SYSUserRoles.Add(SUR);
+                            }
+                            db.SaveChanges();
+                        }
+                        dbContextTransaction.Commit();
+                    }
+                    catch
+                    {
+                        dbContextTransaction.Rollback();
+                    }
+                }
+            }
+
         }
     }
 }

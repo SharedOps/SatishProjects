@@ -40,16 +40,45 @@ namespace RealWorld.Controllers
         //calls the GetUserDataView() method by passing in the loginName as the parameter
         //and return the result in the Partial View.
         [AuthorizeRoles("Admin")]
-        public ActionResult ManageUserPartial()
+        public ActionResult ManageUserPartial(string status = "")
         {
-            if(User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated)
             {
                 string loginName = User.Identity.Name;
                 UserManager UM = new UserManager();
                 UserDataView UDV = UM.GetUserDataView(loginName);
+                string message = string.Empty;
+                if (status.Equals("update"))
+                    message = "Update Successful";
+                else if (status.Equals("delete"))
+                    message = "Delete Successful";
+                ViewBag.Message = message;
                 return PartialView(UDV);
             }
-            return View();
+                return RedirectToAction("Index", "Home");
+        }
+
+        //This method is responsible for collecting data that is sent from the View for update.
+        [AuthorizeRoles("Admin")]
+        public ActionResult UpdateUserData(int userID, string loginName, string password, string firstName, string lastName, string gender, int roleID = 0)
+        {
+            UserProfileView UPV = new UserProfileView
+            {
+                SYSUserID = userID,
+                LoginName = loginName,
+                Password = password,
+                FirstName = firstName,
+                LastName = lastName,
+                Gender = gender
+            };
+            if (roleID>0)
+            {
+                UPV.LOOKUPRoleID = roleID;
+            }
+            UserManager UM = new UserManager();
+            UM.UpdateUserAccount(UPV);
+
+            return Json(new { success = true });
         }
     }
 }
