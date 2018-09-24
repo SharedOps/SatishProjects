@@ -55,7 +55,7 @@ namespace RealWorld.Controllers
                 ViewBag.Message = message;
                 return PartialView(UDV);
             }
-                return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home");
         }
 
         //This method is responsible for collecting data that is sent from the View for update.
